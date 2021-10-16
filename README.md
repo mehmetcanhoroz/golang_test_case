@@ -4,6 +4,12 @@ Basic Rest Api
 ## Explanation
 I've built a basic rest api project with a few best practices and the company's asked details.
 
+## Production Serve
+The application is running on Heroku currently. You can access the public api via https://golang-test-case.herokuapp.com/
+
+## Deployment
+It is configured the auto-deploy when main branch is updated.
+
 ## Features  
 - (Required) Add Value with Key
 - (Required) Remove Value by Key
