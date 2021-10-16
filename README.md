@@ -36,6 +36,9 @@ If you have docker and docker-compose on your system, It is easy peasy lemon squ
 ## Use the App
 1. I uploaded Postman Collections and Env files, you can import them. So, every single endpoint will be set in your Postman.
 To import them, follow this tutorial = https://learning.postman.com/docs/getting-started/importing-and-exporting-data/
+`https://github.com/mehmetcanhoroz/golang_test_case/blob/main/GolangTestCase_PROD.postman_environment.json`
+`https://github.com/mehmetcanhoroz/golang_test_case/blob/main/GolangTestCase_LOCAL.postman_environment.json`
+`https://github.com/mehmetcanhoroz/golang_test_case/blob/main/Golang%20Test%20Case.postman_collection.json`
 
 ## Endpoints (Required Features)
 
