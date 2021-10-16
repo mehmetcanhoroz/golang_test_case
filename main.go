@@ -45,7 +45,8 @@ func main() {
 
 	log.Println("[STARTING] Server is starting to serve...")
 	go saveDatabase()
-	log.Fatal(http.ListenAndServe(":8080", logIncomingRequests(httpRouter)))
+	port := os.Getenv("PORT")
+	log.Fatal(http.ListenAndServe(":"+port, logIncomingRequests(httpRouter)))
 }
 
 func prepareDatabaseClient() {
