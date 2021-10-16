@@ -26,7 +26,7 @@ func envConfigurationCheck() {
 		}
 	}
 
-	log.Println("[SUCCESS] Env check is done!")
+	log.Println("[PRE_CHECK] Env check is done!")
 }
 
 func main() {
@@ -34,10 +34,12 @@ func main() {
 	// We have to check in use env configs to prevent app crash while serving
 	envConfigurationCheck()
 	prepareDatabaseClient()
+	prepareInMemoryDatabaseClient()
 
 	httpRouter := http.NewServeMux()
 
 	gh := &handler.GameHandler{}
+	ih := &handler.InMemoryHandler{}
 
 	// net/http doesn't support url parameter without manual work, so, i decided to use query param to make it easier
 	httpRouter.HandleFunc("/games/flush", gh.FlushGames)
@@ -45,8 +47,16 @@ func main() {
 	httpRouter.HandleFunc("/games/delete", gh.DeleteGame)
 	httpRouter.HandleFunc("/games", gh.GetAllGames)
 
+
+	httpRouter.HandleFunc("/fake-redis/add", ih.AddValue)
+	httpRouter.HandleFunc("/fake-redis/flush", ih.FlushValues)
+	httpRouter.HandleFunc("/fake-redis/delete", ih.DeleteValue)
+	httpRouter.HandleFunc("/fake-redis", ih.GetAllValues)
+
 	log.Println("[STARTING] Server is starting to serve...")
+
 	go saveDatabase()
+	go saveInMemoryDatabase()
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -74,16 +84,41 @@ func prepareDatabaseClient() {
 
 		err2 := ioutil.WriteFile("database.txt", []byte(dbJsonText), 0755)
 		if err2 != nil {
-			log.Fatalf("[ERROR] Unable to write file: %v", err2)
+			log.Fatalf("[ERROR] Unable to write db file: %v", err2)
 		}
-		log.Println("[SUCCESS] New Database file was created!")
+		log.Println("[PRE_CHECK] New Database file was created!")
 	} else {
 		var gameDbHolder []domain.Game
 		if err := json.Unmarshal(content, &gameDbHolder); err != nil {
 			log.Fatalf("[ERROR] Data in Database file was broken! Have to be deleted!")
 		} else {
 			domain.GameDatabase = gameDbHolder
-			log.Println("[SUCCESS] Database file was read!")
+			log.Println("[PRE_CHECK] Database file was read!")
+		}
+	}
+}
+
+func prepareInMemoryDatabaseClient() {
+	domain.InMemoryDatabase = make(map[string]string)
+	content, err := ioutil.ReadFile("fake_redis_database.txt")
+
+	if err != nil {
+		log.Println("[ERROR] Not able to connect fake redis database, trying to create new Fake Redis DB")
+
+		dbJsonText, _ := json.Marshal(domain.InMemoryDatabase)
+
+		err2 := ioutil.WriteFile("fake_redis_database.txt", []byte(dbJsonText), 0755)
+		if err2 != nil {
+			log.Fatalf("[ERROR] Unable to write fake redis db file: %v", err2)
+		}
+		log.Println("[PRE_CHECK] New Fake Redis Database file was created!")
+	} else {
+		var valueMemoryHolder map[string]string
+		if err := json.Unmarshal(content, &valueMemoryHolder); err != nil {
+			log.Fatalf("[ERROR] Fake Redis Data in Database file was broken! Have to be deleted!")
+		} else {
+			domain.InMemoryDatabase = valueMemoryHolder
+			log.Println("[PRE_CHECK] Fake Redis Database file was read!")
 		}
 	}
 }
@@ -96,17 +131,32 @@ func logIncomingRequests(handler http.Handler) http.Handler {
 
 func saveDatabase() {
 	for {
-		var min, _ = strconv.ParseInt(os.Getenv(common.SaveInterval), 10, 32)
+		var sec, _ = strconv.ParseInt(os.Getenv(common.SaveInterval), 10, 32)
 
-		time.Sleep(time.Duration(int(min)) * time.Second)
-		//time.Sleep(1 * time.Minute)
+		time.Sleep(time.Duration(int(sec)) * time.Second)
 
 		dbJsonText, _ := json.Marshal(domain.GameDatabase)
 
 		err := ioutil.WriteFile("database.txt", []byte(dbJsonText), 0755)
 		if err != nil {
-			log.Fatalf("[ERROR] Unable to write file: %v", err)
+			log.Fatalf("[ERROR] Unable to write db file: %v", err)
 		}
-		log.Println("[SUCCESS] Database file was updated!")
+		log.Println("[PRE_CHECK] Database file was updated!")
+	}
+}
+
+func saveInMemoryDatabase() {
+	for {
+		var sec, _ = strconv.ParseInt(os.Getenv(common.SaveInterval), 10, 32)
+
+		time.Sleep(time.Duration(int(sec)) * time.Second)
+
+		dbJsonText, _ := json.Marshal(domain.InMemoryDatabase)
+
+		err := ioutil.WriteFile("fake_redis_database.txt", []byte(dbJsonText), 0755)
+		if err != nil {
+			log.Fatalf("[ERROR] Unable to write fake redis db file: %v", err)
+		}
+		log.Println("[PRE_CHECK] Fake Redis Database file was updated!")
 	}
 }

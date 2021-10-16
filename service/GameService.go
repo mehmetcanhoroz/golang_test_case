@@ -60,7 +60,7 @@ func (gs *GameService) AddGame(game domain.Game) dto.RestResponse {
 
 	return dto.RestResponse{
 		Data: record,
-		Code: http.StatusOK,
+		Code: http.StatusCreated,
 	}
 
 }
@@ -78,7 +78,7 @@ func (gs *GameService) DeleteGame(id int) dto.RestResponse {
 		if deleted {
 			return dto.RestResponse{
 				Message: "Game deleted.",
-				Code: http.StatusOK,
+				Code: http.StatusAccepted,
 			}
 		}
 
