@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "813b7f0b-a8c5-45a1-b350-a94aff7b873b",
+		"name": "Golang Test Case",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Game",
+			"item": [
+				{
+					"name": "Add Game",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"game_title\":\"World of warcraft\",\r\n     \"price\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiUrl}}/games/add",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"games",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Games",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiUrl}}/games?id=1",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"games"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get A Game",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiUrl}}/games",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Game",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiUrl}}/games/delete?id=1",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"games",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flush All Games",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiUrl}}/games/flush",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"games",
+								"flush"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fake Redis In Memory",
+			"item": [
+				{
+					"name": "Add Fake Redis Value",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiUrl}}/fake-redis/add?key=mehmet&value=canhoroz",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"fake-redis",
+								"add"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "mehmet"
+								},
+								{
+									"key": "value",
+									"value": "canhoroz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Fake Redis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiUrl}}/fake-redis/delete?key=mehmet",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"fake-redis",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "mehmet"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flush All Redis Value",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiUrl}}/fake-redis/flush",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"fake-redis",
+								"flush"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Fake Redis Values",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiUrl}}/fake-redis?key=mehmet",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"fake-redis"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "mehmet"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Fake Redis Values",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiUrl}}/fake-redis",
+							"host": [
+								"{{ApiUrl}}"
+							],
+							"path": [
+								"fake-redis"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
