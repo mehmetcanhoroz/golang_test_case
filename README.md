@@ -43,42 +43,62 @@ To import them, follow this tutorial = https://learning.postman.com/docs/getting
 ## Endpoints (Required Features)
 
 ##### Add Value with Key
-`curl --location --request GET 'localhost:8080/fake-redis/add?key=mehmet&value=canhoroz'`
+```
+curl --location --request GET 'localhost:8080/fake-redis/add?key=mehmet&value=canhoroz'
+```
 
 ##### Remove Value by Key
-`curl --location --request GET 'localhost:8080/fake-redis/delete?key=mehmet'`
+```
+curl --location --request GET 'localhost:8080/fake-redis/delete?key=mehmet'
+```
 
 ##### Flush All Keys and Values
-`curl --location --request GET 'localhost:8080/fake-redis/flush'`
+```
+curl --location --request GET 'localhost:8080/fake-redis/flush'
+```
 
 ##### Get a Value by Key
-`curl --location --request GET 'localhost:8080/fake-redis?key=mehmet'`
+```
+curl --location --request GET 'localhost:8080/fake-redis?key=mehmet'
+```
 
 ##### List All Values and Keys
-`curl --location --request GET 'localhost:8080/fake-redis'`
+```
+curl --location --request GET 'localhost:8080/fake-redis'
+```
 
 
 ## Endpoints (Extra Features)
 
 ##### Add a Game
-`curl --location --request GET 'localhost:8080/games/add' \
+```
+curl --location --request GET 'localhost:8080/games/add' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "game_title":"World of warcraft",
      "price": 1
-}'`
+}'
+```
 
 ##### Delete a Game
-`curl --location --request GET 'localhost:8080/games/delete?id=1'`
+```
+curl --location --request GET 'localhost:8080/games/delete?id=1'
+```
 
 ##### Flush All Games
-`curl --location --request GET 'localhost:8080/games/flush'`
+```
+curl --location --request GET 'localhost:8080/games/flush'
+```
 
 ##### List All Games
-`curl --location --request GET 'localhost:8080/games?id=1'`
+```
+curl --location --request GET 'localhost:8080/games?id=1'
+```
 
 ##### Get a Game
-`curl --location --request GET 'localhost:8080/games'`
+```
+curl --location --request GET 'localhost:8080/games'
+```
 
 ## 3rd Party Dependencies
 As asked, there is no single 3rd party lib in the project. Everything was built in with native golang libs
