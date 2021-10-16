@@ -9,8 +9,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
-	"time"
 )
 
 func envConfigurationCheck() {
@@ -32,7 +30,7 @@ func envConfigurationCheck() {
 func main() {
 
 	// We have to check in use env configs to prevent app crash while serving
-	envConfigurationCheck()
+	//envConfigurationCheck()
 	prepareDatabaseClient()
 
 	httpRouter := http.NewServeMux()
@@ -90,9 +88,9 @@ func logIncomingRequests(handler http.Handler) http.Handler {
 
 func saveDatabase() {
 	for {
-		var min, _ = strconv.ParseInt(os.Getenv(common.SaveInterval), 10, 32)
+		//var min, _ = strconv.ParseInt(os.Getenv(common.SaveInterval), 10, 32)
 
-		time.Sleep(time.Duration(int(min)) * time.Second)
+		//time.Sleep(time.Duration(int(min)) * time.Second)
 		//time.Sleep(1 * time.Minute)
 
 		dbJsonText, _ := json.Marshal(domain.GameDatabase)
