@@ -5,6 +5,7 @@ import (
 	"YS_TestCase/domain"
 	"YS_TestCase/handler"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -52,6 +53,12 @@ func main() {
 	httpRouter.HandleFunc("/fake-redis/flush", ih.FlushValues)
 	httpRouter.HandleFunc("/fake-redis/delete", ih.DeleteValue)
 	httpRouter.HandleFunc("/fake-redis", ih.GetAllValues)
+
+	httpRouter.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// we need to have index page because
+		//many firewalls and load balancers doesn't support the custom links to check/ping the application before set it down
+		fmt.Fprintln(w, "Golang Rest Api - Ping Pong")
+	})
 
 	log.Println("[STARTING] Server is starting to serve...")
 
